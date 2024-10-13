@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+    <style>
+        table {
+            width: 60%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1 align="middle">SportyShoes.com</h1>
+<p align="right"><a th:href="@{/admin-panel}">Admin Panel</a></p>
+<hr/>
+<span th:text="${msg}" style="color:green"></span>
+<h2 th:text="${operation}"></h2>
+<form action="#" th:action="@{add-category}" method="post" th:object="${category}">
+    <input type="hidden" th:field="*{id}">
+    <label>Category Name</label>
+    <input type="text" th:field="*{categoryName}"><br/>
+    <input type="submit" th:value="${b}" name="submitButton"/>
+  <input type="reset" value="Reset"/>
+</form>
+<br/>
+<h2>Categories</h2>
+<div th:if="${categories.isEmpty()}">
+    <p>No categories available.</p>
+</div>
+<!-- orders table -->
+<table th:if="${not categories.isEmpty()}">
+    <tr>
+        <th>Category Name</th>
+    </tr>
+    <tr th:each="c:${categories}">
+        <td th:text="${c.categoryName}"></td>
+        <td><a th:href="@{/delete-category(id=${c.id})}">Delete</a></td>
+        <td><a th:href="@{/update-category(id=${c.id})}">Update</a></td>
+    </tr>
+</table>
+</body>
+</html>

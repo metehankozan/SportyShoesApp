@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SportyShoes.com</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9f9f9;
+    }
+    .link-container {
+        text-align: center;
+    }
+    .link {
+        display: block;
+        margin: 20px 0;
+        font-size: 24px;
+        color: #007bff;
+        text-decoration: none;
+    }
+    .link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="link-container">
+  <a th:href="@{/category-management}" class="link">Category Management</a>
+  <a th:href="@{/product-management}" class="link">Product Management</a>
+  <a th:href="@{/order-management}" class="link">Order Management</a>
+</div>
+</body>
+</html>

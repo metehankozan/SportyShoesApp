@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>SportyShoes.com</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+    }
+    .categories {
+        width: 20%;
+        padding: 10px;
+        background-color: #f4f4f4;
+    }
+    .categories .category-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .category-btn:hover {
+        background-color: #0056b3;
+    }
+    .products {
+        width: 80%;
+        padding: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<h1 align="middle">SportyShoes.com</h1>
+<p style="text-align:right"><a th:href="@{/orders}">Your Orders</a></p>
+<hr/>
+<span th:text="${msg}" style="color:green"></span>
+<div class="container">
+  <div class="categories">
+    <h2>Categories</h2>
+    <div th:if="${categories.isEmpty()}">
+      <p>No categories available.</p>
+    </div>
+    <ul th:if="${not categories.isEmpty()}">
+      <li th:each="category : ${categories}">
+        <a th:text="${category.categoryName}" th:href="@{/products?categoryId={id}(id=${category.id})}"></a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="products">
+    <h2>Products</h2>
+    <div th:if="${products.isEmpty()}">
+      <p>No products available.</p>
+    </div>
+    <table th:if="${not products.isEmpty()}">
+      <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Category</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product : ${products}">
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.brand}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.category.categoryName}"></td>
+        <td><a th:href="@{/order(productId=${product.id})}">Buy</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

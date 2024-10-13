@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+  <title>SportyShoes.com</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+    }
+    .categories {
+        width: 20%;
+        padding: 10px;
+        background-color: #f4f4f4;
+    }
+    .categories .category-btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        text-align: center;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .category-btn:hover {
+        background-color: #0056b3;
+    }
+    .orders {
+        width: 80%;
+        padding: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th, td {
+        padding: 10px;
+        text-align: left;
+    }
+    img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+  </style>
+</head>
+<body>
+<h1 align="middle">SportyShoes.com</h1>
+<p align="right"><a th:href="@{/admin-panel}">Admin Panel</a></p>
+<hr/>
+<span th:text="${msg}" style="color:green"></span>
+<div class="container">
+  <div class="categories">
+    <h2>Categories</h2>
+    <div th:if="${categories.isEmpty()}">
+      <p>No categories available.</p>
+    </div>
+    <ul th:if="${not categories.isEmpty()}">
+      <li th:each="category : ${categories}">
+        <a th:text="${category.categoryName}" th:href="@{/orders-by-category?categoryId={id}(id=${category.id})}"></a>
+      </li>
+    </ul>
+  </div>
+  <div class="orders">
+    <h2>Orders</h2>
+    <div th:if="${orders.isEmpty()}">
+      <p>No orders available.</p>
+    </div>
+    <table th:if="${not orders.isEmpty()}">
+      <thead>
+      <tr>
+        <th>User Email</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="order : ${orders}">
+        <td th:text="${order.user.email}"></td>
+        <td th:text="${order.product.productName}"></td>
+        <td th:text="${order.product.price}"></td>
+        <td th:text="${order.product.category.categoryName}"></td>
+        <td th:text="${order.status}"></td>
+        <td><a th:href="@{/approve-order(id=${order.id})}">Approve</a></td>
+        <td><a th:href="@{/cancel-order(id=${order.id})}">Cancel</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new product</title>
+    <style>
+      table {
+          width: 100%;
+          border-collapse: collapse;
+      }
+      table, th, td {
+          border: 1px solid black;
+      }
+      th, td {
+          padding: 10px;
+          text-align: left;
+      }
+      img {
+          max-width: 100px;
+          max-height: 100px;
+      }
+    </style>
+</head>
+<body>
+<h1 align="middle">SportyShoes.com</h1>
+<p align="right"><a th:href="@{/admin-panel}">Admin Panel</a></p>
+<hr/>
+<span th:text="${msg}" style="color:green"></span>
+<h2 th:text="${operation}"></h2>
+<div th:if="${categories.isEmpty()}">
+  <p>There are no categories present. First <a th:href="@{/category-management}">add new categories</a></p>
+</div>
+<form th:if="${not categories.isEmpty()}" action="#" th:action="@{add-product}" method="post" th:object="${product}">
+  <input type="hidden" th:field="*{id}">
+  <label>Product Name</label>
+  <input type="text" th:field="*{productName}"><br/>
+  <label>Brand</label>
+  <input type="text" th:field="*{brand}"><br/>
+  <label>Price</label>
+  <input type="number" th:field="*{price}"/> <br/>
+  <label>Select Category</label>
+  <div th:each="c:${categories}">
+    <input type="radio" th:field="*{category}" th:value="${c.id}" id="${c.categoryName}" />
+    <label th:for="${c.categoryName}" th:text="${c.categoryName}"></label>
+  </div>
+  <input type="submit" th:value="${b}" name="submitButton"/>
+  <input type="reset" value="Reset"/>
+</form>
+<br>
+<h2>Products</h2>
+<div th:if="${products.isEmpty()}">
+  <p>No products available.</p>
+</div>
+<table th:if="${not products.isEmpty()}">
+  <tr>
+    <th>Product Name</th>
+    <th>Brand</th>
+    <th>Price</th>
+    <th>Category</th>
+  </tr>
+  <tr th:each="p:${products}">
+    <td th:text="${p.productName}"></td>
+    <td th:text="${p.brand}"></td>
+    <td th:text="${p.price}"></td>
+    <td th:text="${p.category.categoryName}"></td>
+    <td><a th:href="@{/delete-product(id=${p.id})}">Delete</a></td>
+    <td><a th:href="@{/update-product(id=${p.id})}">Update</a></td>
+  </tr>
+</table>
+</body>
+</html>

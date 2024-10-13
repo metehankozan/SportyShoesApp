@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+<h1 align="middle">SportyShoes.com</h1>
+<hr/>
+<span th:text="${msg}" style="color:green"></span>
+<h2>Login</h2>
+<form action="#" th:action="@{sign-in}" method="post" th:object="${user}">
+<label>Email</label>
+<input type="email" th:field="*{email}"><br/>
+ <label>Password</label>
+<input type="password" th:field="*{password}"><br/>
+<input type="submit" value="Sign In"/>
+<input type="reset" value="Reset"/>
+</form>
+<br/>
+<a href="sign-up">Sign Up</a>
+</body>
+</html>
